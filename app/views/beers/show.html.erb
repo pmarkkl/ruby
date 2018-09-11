@@ -15,6 +15,12 @@
   <%= @beer.brewery_id %>
 </p>
 
+<% if @beer.ratings.empty? %>
+  <p>not yet rated</p>
+<% else %>
+  <p>Has <%= @beer.ratings.count %> <%= "rating".pluralize(@beer.ratings.count) %>, average <%= @beer.average_rating %></p>
+<% end %>
+
 <p>
   <%= link_to 'Näytä panimot', breweries_path %>
 </p>
