@@ -2,7 +2,7 @@
 <p><%= link_to 'Add rating', new_rating_path %></p>
 <ul>
  <% @ratings.each do |rating| %>
-   <li> <%= rating %></li>
+   <li><%= rating %> <%= link_to 'delete', rating, method: :delete, data: { confirm: 'Delete?' } %></li>
  <% end %>
  <p>Arvostelujen lukumäärä: <%= @ratings.count %></p>
 </ul>
