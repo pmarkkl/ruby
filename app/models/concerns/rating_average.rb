@@ -1,8 +1,8 @@
 module RatingAverage
   extend ActiveSupport::Concern
-  attr :value
+  attr_reader :value
 
   def average_rating
-    "#{ratings.average(:score)}"
+    ratings.average(:score).to_s
   end
 end
