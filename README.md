@@ -2,4 +2,4 @@
 
 Petteri Markkola
 
-http://polar-coast-53982.herokuapp.com/breweries
+http://polar-coast-53982.herokuapp.com/
