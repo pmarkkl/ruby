@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+- 2.5.1
+script:
+- bundle exec rails db:migrate
+- bundle exec rspec -fd spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: HsQOqGBVTftISs5cMdnJ0fu/wi+F5YaVOLVHyHUj1emcw83GZADVtKviC8GWsg3aIPzTb4/vOPpibv9VMlZLiKRlIXPQPXK26BjsQPawPP7bLWTJWGdZBLd98K4xf1NYo5OT5E7Y1CwdnAiGyPLux2cn5+DyPK1FBQ5kd2mrMgXxLzh1mtE1S+7EPhJHIhvMdwoK/F5p+h4M3Fv6yQD6IwDn9LNQ+HFSey38vnF4d97KKPT2zeWaLKEQpsasx7DnZd6qQd8OZ6JdsTSQGZHTTphGRBMAfLFaetB+3tqCG01KpaXllWeUoBBFDuifI5mHeEVxL1UhYcB8i185u7PAV4B2tQBZVuA/D1YB61INBExgLPZruhJIS8T2t17taltbDuVPMG6X3yw1r1OzEUizA/OpJ/gqXbwg4oUs3uMlDyS3VoICjMImMy5HrMLrrEB/2IVAFyFbItTb58TV61P2m5accOqlfVElIHYq5xUIsTKfqFQ6ZnidPaKjzNUNX5OBWRmsNggqIkWt9TylMtaSF0i68d4lWjk5p8Jkkku5/bI+4Asj+dNyoT4NUbVJDEZx0GCuhENv9mLH8XcZ9L2+ehy+0PUCLkhdMU1DTdDWbS34XX+Ut9fcNiAyQ6jYJXnR1vqUeFxEk0gK4L0BtiVl31BdgUJVhwxiEsSRYNMEkYE=
+  app: polar-coast-53982
+  on:
+    repo: puhuri666/ruby
