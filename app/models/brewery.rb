@@ -2,7 +2,7 @@ class Brewery < ApplicationRecord
   include RatingAverage
 
   validates :name, presence: true, length: { minimum: 1, maximum: 100 }
-  validates :year, inclusion: { in: 1040..Date.current.year }
+  validates :year, numericality: { only_integer: true, greater_than: 1039, less_than_or_equal_to: ->(_) { Time.now.year } }
 
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers

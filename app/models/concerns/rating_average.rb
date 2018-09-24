@@ -3,6 +3,6 @@ module RatingAverage
   attr_reader :value
 
   def average_rating
-    ratings.average(:score).to_s
+    ratings.average(:score)
   end
 end

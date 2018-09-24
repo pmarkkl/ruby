@@ -4,5 +4,5 @@
  <% @ratings.each do |rating| %>
    <li><%= rating %> <%= link_to rating.user.username, rating.user %></li>
  <% end %>
- <p>Arvostelujen lukumäärä: <%= @ratings.count %></p>
+ <p>Number of ratings: <%= @ratings.count %></p>
 </ul>
