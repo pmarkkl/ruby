@@ -12,6 +12,7 @@ describe "Breweries page" do
       FactoryBot.create(:brewery, name: brewery_name, year:2018)
     end
     visit breweries_path
+    save_and_open_page
     expect(page).to have_content "Number of breweries: #{breweries.count}"
   
     breweries.each do |brewery_name|
