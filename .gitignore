@@ -32,3 +32,6 @@
 
 ruby.pub
 ruby
+
+# spec testiksi ignoreen
+/spec

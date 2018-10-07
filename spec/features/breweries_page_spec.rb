@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Breweries page" do
   it "should not have any before been created" do
