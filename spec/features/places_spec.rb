@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'spec_helper'
 
 describe "Places" do
   it "if one is returned by the API, it is shown at the page" do
