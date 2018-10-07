@@ -10,4 +10,7 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#new'
   get 'signout', to: 'sessions#destroy'
   resource :session, only: [:new, :create, :destroy]
+  resources :places, only: [:index, :show]
+  post 'places', to:'places#search'
+  resources :styles, only: [:index, :show]
 end

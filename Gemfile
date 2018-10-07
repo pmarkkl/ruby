@@ -60,6 +60,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'launchy'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -73,3 +74,5 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
+
+gem 'httparty'

@@ -17,7 +17,7 @@
   </div>
 
   <div class="field">
-    Style <%= form.select :style, options_for_select(@styles) %>
+    Style <%= form.select :style, options_from_collection_for_select(@styles, :id, :name) %>
   </div>
 
   <div class="field">

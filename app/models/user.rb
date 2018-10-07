@@ -16,7 +16,7 @@ class User < ApplicationRecord
     return "" if ratings.empty?
 
     averages = {}
-    beer_groups = ratings.group_by { |rating| rating.beer.style }
+    beer_groups = ratings.group_by { |rating| rating.beer.style.name }
     beer_groups.each do |key, value|
       averages[key] = value.reduce(0.0){ |sum, r| sum + r.score } / value.count
     end

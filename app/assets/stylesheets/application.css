@@ -6,3 +6,11 @@ body {
     padding: 10px;
     background: #EFEFEF;
 }
+
+#membershipnotice {
+    color: green;
+}
+
+#notice {
+    color: green;
+}

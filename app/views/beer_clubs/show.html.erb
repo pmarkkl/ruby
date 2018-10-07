@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="membershipnotice"><%= notice %></p>
 
 <h2><%= @beer_club.name %> (<%= @beer_club.city %>)</h2>
 
@@ -14,6 +14,23 @@
   <% end %>
   </ul>
 </p>
+
+<% if !current_user.nil? %>
+  <% if !@beer_club.memberships.any? { |membership| membership.user == current_user } %>
+    <%= form_for(@membership) do |f| %>
+    <%= f.hidden_field :beer_club_id %>
+    <%= f.submit value:"join the club" %>
+    <% end %>
+  <% end %>
+  <% if @beer_club.memberships.any? { |membership| membership.user == current_user } %>
+    <%= form_for(@membership, method: "delete") do |f| %>
+    <%= f.hidden_field :beer_club_id %>
+    <%= f.submit value: "end the membership" %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<br />
 
 <%= link_to 'Edit', edit_beer_club_path(@beer_club) if current_user %><br />
 <%= link_to 'Destroy', @beer_club, method: :delete, data: { confirm: 'Are you sure?' } if current_user %>
