@@ -11,7 +11,6 @@ class PlacesController < ApplicationController
     @places = BeermappingApi.places_in(params[:city])
     @weather = BeermappingApi.get_weather_in(params[:city])
     Rails.cache.write('city', params[:city])
-    url = ""
     if @places.empty?
       redirect_to places_path, notice: "No locations in #{params[:city]}"
     else
