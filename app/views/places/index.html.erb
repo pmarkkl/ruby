@@ -6,8 +6,15 @@
   city <%= text_field_tag :city, params[:city] %>
   <%= submit_tag "Search" %>
 <% end %>
-
+<p>
+</p>
 <% if @places %>
+  <p>
+    current weather in <%= @weather["location"]["name"] %><br />
+    <p><%= @weather["current"]["temp_c"]%> Celsius</p>
+    <img src="http://<%= @weather["current"]["condition"]["icon"] %>" />
+    <p><b>wind: </b><%= @weather["current"]["wind_kph"] %>/sec, direction <%= @weather["current"]["wind_dir"]%></p>
+  </p>
   <table>
   <thead>
     <th>id</th>
