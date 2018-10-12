@@ -1,21 +1,20 @@
 <h1>Beer places search</h1>
 
-<p id="notice"><%= notice %></p>
 
-<%= form_tag places_path do %>
-  city <%= text_field_tag :city, params[:city] %>
-  <%= submit_tag "Search" %>
+
+<%= form_tag places_path, class:"form-inline" do %>
+  <%= text_field_tag :city, params[:city], class:"form-control mr-sm-2" %>
+  <%= submit_tag "Search", class:"btn btn-outline-success my-2 my-sm-0" %>
 <% end %>
 <p>
 </p>
 <% if @places %>
-  <p>
-    current weather in <%= @weather["location"]["name"] %><br />
-    <p><%= @weather["current"]["temp_c"]%> Celsius</p>
+  <div>
+    <h3>Current weather in <%= @weather["location"]["name"] %></h3>
     <img src="http://<%= @weather["current"]["condition"]["icon"] %>" />
-    <p><b>wind: </b><%= @weather["current"]["wind_kph"] %>/sec, direction <%= @weather["current"]["wind_dir"]%></p>
-  </p>
-  <table>
+    <p><b>Temperature: </b><%= @weather["current"]["temp_c"]%> °C <b>Wind: </b><%= @weather["current"]["wind_kph"] %>/sec, <%= @weather["current"]["wind_dir"]%></p>
+  </div>
+  <table class="table table-hover">
   <thead>
     <th>id</th>
     <th>name</th>
