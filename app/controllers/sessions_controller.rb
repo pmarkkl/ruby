@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by username: params[:username]
+    return redirect_to root_path, notice: "Your account has been disabled." if !user.access?
+
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
       redirect_to user_path(user), notice: "Welcome back!"

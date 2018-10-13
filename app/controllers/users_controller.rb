@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_account_access]
+  before_action :ensure_that_signed_in, only: [:show]
+  before_action :ensure_admin_status, only: [:destroy, :toggle_account_access]
 
   # GET /users
   # GET /users.json
@@ -63,6 +65,18 @@ class UsersController < ApplicationController
       @user.destroy
       respond_to do |format|
         format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to users_url
+    end
+  end
+
+  def toggle_account_access
+    if current_user.admin == true && !@user.admin == true
+      @user.update_attribute :access, !@user.access
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: "Access for #{@user.username} was successfully changed." }
         format.json { head :no_content }
       end
     else

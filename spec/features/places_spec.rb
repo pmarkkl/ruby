@@ -12,19 +12,33 @@ describe "Places" do
 
     expect(page).to have_content "Oljenkorsi"
   end
-  it "places are found all of them are listed" do
+
+  it "if many are returned by the API, all are shown at the page" do
+    allow(BeermappingApi).to receive(:places_in).with("puotila").and_return(
+      [ 
+        Place.new( name: "Pikkulintu", id: 1 ),
+        Place.new( name: "Puotinkrouvi", id: 2 ) 
+      ]
+    )
+
     visit places_path
-    fill_in('city', with: 'Oulu')
+    fill_in('city', with: 'puotila')
     click_button "Search"
-    page_results = page.all('td', text: 'Oulu')
-    controller_results = BeermappingApi.places_in("Oulu")
-    expect(page_results.length).to eq(controller_results.length)
-  end
-  it "shows a proper notification when places not found" do
+
+    expect(page).to_not have_content "Oljenkorsi"
+    expect(page).to have_content "Pikkulintu"
+    expect(page).to have_content "Puotinkrouvi"
+  end  
+
+  it "if none is returned by the API, use is notified" do
+    allow(BeermappingApi).to receive(:places_in).with("tapanila").and_return(
+      []
+    )
+
     visit places_path
-    fill_in('city', with: 'askdlsadkl')
+    fill_in('city', with: 'tapanila')
     click_button "Search"
-    save_and_open_page
-    expect(page).to have_content "No locations in askdlsadkl"
-  end
+
+    expect(page).to have_content "No locations in tapanila"
+  end  
 end

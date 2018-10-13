@@ -1,7 +1,21 @@
 
 <div>
-  <h2><%= @user.username %></h2>
-  <p>Has <%= @user.ratings.count %> <%= "rating".pluralize(@user.ratings.count) %>, average rating <%= @user.average_rating %></p>
+  <h3>
+    <%= @user.username %> 
+    <% if @user.access == false %>
+      <span class="badge badge-info">Account has been disabled.</span>
+    <% end %>
+  </h3>
+
+  <% if current_user.admin == true && !@user.admin == true %>
+    <% if @user.access %>
+      <%= link_to "Disable account", toggle_account_access_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Enable account", toggle_account_access_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+    <% end %>
+  <% end %>
+
+  <p>Has <%= @user.ratings.count %> <%= "rating".pluralize(@user.ratings.count) %>, average rating <%= round(@user.average_rating) %>.</p>
   <% if @user.ratings.length > 0 %>
     <p>Favorite style of beer is <%= @user.favorite_style %></p>
     <p>Favorite brewery is <%= @user.favorite_brewery %></p>

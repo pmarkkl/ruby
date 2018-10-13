@@ -21,7 +21,7 @@ class BeermappingApi
   def self.get_weather_in(city)
     url = "http://api.apixu.com/v1/current.json?key=#{weatherkey}&q="
     response = HTTParty.get "#{url}#{ERB::Util.url_encode(city)}"
-    return weather = response.parsed_response
+    response.parsed_response
   end
 
   def self.key

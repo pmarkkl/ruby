@@ -1,4 +1,22 @@
 <h1>Styles</h1>
-<% @styles.each do |style| %>
-  <p><%= link_to style.name, style %></p>
-<% end %>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Style</th>
+      <th>Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @styles.each do |style| %>
+      <tr>
+        <td><%= link_to style.name, style %></td>
+        <td><%= style.beers.count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Style', new_style_path %>

@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :beers, through: :ratings
   has_many :memberships
   has_many :beer_clubs, through: :memberships, dependent: :destroy
+  has_many :raters, -> { distinct }, through: :ratings, source: :user
 
   def favorite_style
     return "" if ratings.empty?
@@ -32,5 +33,10 @@ class User < ApplicationRecord
       averages[key] = value.reduce(0.0){ |sum, r| sum + r.score } / value.count
     end
     averages.max_by{ |_, v| v }[0]
+  end
+
+  def self.sorted_by_ratings(count)
+    sorted = User.all.sort_by{ |u| -(u.ratings.count || 0) }
+    sorted[0..count - 1]
   end
 end
