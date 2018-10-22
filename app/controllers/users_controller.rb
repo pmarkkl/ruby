@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_account_access]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_closed]
   before_action :ensure_that_signed_in, only: [:show]
   before_action :ensure_admin_status, only: [:destroy, :toggle_account_access]
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.includes(:ratings, :beers).all
   end
 
   # GET /users/1
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def toggle_account_access
+  def toggle_closed
     if current_user.admin == true && !@user.admin == true
       @user.update_attribute :access, !@user.access
       respond_to do |format|

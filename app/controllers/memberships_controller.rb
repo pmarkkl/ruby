@@ -1,6 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :set_membership, only: [:show, :edit, :update, :destroy, :activate_membership]
 
   # GET /memberships
   # GET /memberships.json
@@ -30,7 +29,7 @@ class MembershipsController < ApplicationController
     @membership.user = current_user
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership.beer_club, notice: "#{@membership.user.username} welcome to the club!" }
+        format.html { redirect_to @membership.beer_club, notice: "Your application has been created." }
         format.json { render :show, status: :created, location: @membership }
       else
         format.html { render :new }
@@ -61,6 +60,11 @@ class MembershipsController < ApplicationController
       format.html { redirect_to user_path(current_user), notice: "Membership in #{@membership.beer_club.name} ended." }
       format.json { head :no_content }
     end
+  end
+
+  def activate_membership
+    @membership.update_attribute :confirmed, !@membership.confirmed
+    redirect_to beer_club_path(@membership.beer_club), notice: "membership for #{@membership.user.username} confirmed."
   end
 
   private

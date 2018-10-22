@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_223834) do
+ActiveRecord::Schema.define(version: 2018_10_22_112545) do
 
   create_table "beer_clubs", force: :cascade do |t|
     t.string "name"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_223834) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "confirmed", default: false
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -65,6 +66,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_223834) do
     t.string "password_digest"
     t.boolean "admin"
     t.boolean "access", default: true
+    t.index ["username"], name: "index_users_on_username"
   end
 
 end

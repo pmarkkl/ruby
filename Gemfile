@@ -78,3 +78,5 @@ end
 gem 'httparty'
 gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
+gem 'rack-mini-profiler'
+gem 'omniauth'

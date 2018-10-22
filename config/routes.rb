@@ -1,21 +1,28 @@
 Rails.application.routes.draw do
-  resources :memberships
+  resources :styles
+  resources :memberships do
+    post 'activate_membership', on: :member
+  end
   resources :beer_clubs
   resources :users do
-    post 'toggle_account_access', on: :member
+    post 'toggle_closed', on: :member
   end
   resources :beers
-  resources :styles
   resources :breweries do
     post 'toggle_activity', on: :member
   end
   resources :ratings, only: [:index, :new, :create, :destroy]
-  root 'sessions#new'
+  resource :session, only: [:new, :create, :destroy]
+
   get 'signup', to: 'users#new'
   get 'signin', to: 'sessions#new'
-  get 'signout', to: 'sessions#destroy'
-  resource :session, only: [:new, :create, :destroy]
+  delete 'signout', to: 'sessions#destroy'
+
   resources :places, only: [:index, :show]
   post 'places', to:'places#search'
-  delete 'signout', to: 'sessions#destroy'
+
+  root 'sessions#new'
+
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
 end
+

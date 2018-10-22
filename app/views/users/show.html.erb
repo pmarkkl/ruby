@@ -9,9 +9,9 @@
 
   <% if current_user.admin == true && !@user.admin == true %>
     <% if @user.access %>
-      <%= link_to "Disable account", toggle_account_access_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+      <%= link_to "Disable account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
     <% else %>
-      <%= link_to "Enable account", toggle_account_access_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+      <%= link_to "Enable account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
     <% end %>
   <% end %>
 
@@ -24,7 +24,15 @@
 <div>
   <h3>member of</h3>
   <ul>
-    <% @user.memberships.each do |membership| %>
+    <% @user.memberships.where(confirmed: true).each do |membership| %>
+      <li>
+        <%= link_to membership.beer_club.name, membership.beer_club %>
+      </li>
+    <% end %>
+  </ul>
+  <h3>outstanding applications</h3>
+  <ul>
+    <% @user.memberships.where(confirmed: false).each do |membership| %>
       <li>
         <%= link_to membership.beer_club.name, membership.beer_club %>
       </li>

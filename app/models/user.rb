@@ -1,17 +1,21 @@
 class User < ApplicationRecord
+  has_many :ratings, dependent: :destroy
+  has_many :beers, through: :ratings
+  has_many :memberships, dependent: :destroy
+  has_many :beer_clubs, through: :memberships
+
   include RatingAverage
 
   has_secure_password
 
-  validates :username, uniqueness: true
-  validates :username, length: { minimum: 3, maximum: 30 }
-  validates :password, format: { with: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{4,}$/, multiline: true }
+  validates :username, uniqueness: true,
+                       length: { minimum: 3 }
 
-  has_many :ratings, dependent: :destroy
-  has_many :beers, through: :ratings
-  has_many :memberships
-  has_many :beer_clubs, through: :memberships, dependent: :destroy
-  has_many :raters, -> { distinct }, through: :ratings, source: :user
+  validates :password, length: { minimum: 4 },
+                       format: {
+                         with: /[A-Z].*\d|\d.*[A-Z]/,
+                         message: "must contain one capital letter and number"
+                       }
 
   def favorite_style
     return "" if ratings.empty?
