@@ -22,7 +22,5 @@ Rails.application.routes.draw do
   post 'places', to:'places#search'
 
   root 'sessions#new'
-
-  get 'auth/:provider/callback', to: 'sessions#create_oauth'
 end
 
