@@ -7,11 +7,13 @@
     <% end %>
   </h3>
 
-  <% if current_user.admin == true && !@user.admin == true %>
-    <% if @user.access %>
-      <%= link_to "Disable account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
-    <% else %>
-      <%= link_to "Enable account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+  <% if current_user %>
+    <% if current_user.admin == true && !@user.admin == true %>
+      <% if @user.access %>
+        <%= link_to "Disable account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+      <% else %>
+        <%= link_to "Enable account", toggle_closed_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+      <% end %>
     <% end %>
   <% end %>
 

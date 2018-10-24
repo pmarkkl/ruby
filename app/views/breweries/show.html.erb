@@ -28,8 +28,9 @@
     <% end %>
   </p>
 <% end %>
-
-<%= link_to "Change activity", toggle_activity_brewery_path(@brewery.id), method: :post, class: "btn btn-primary" %>
+<% if current_user %>
+  <%= link_to "Change activity", toggle_activity_brewery_path(@brewery.id), method: :post, class: "btn btn-primary" %>
+<% end %>
 
 <p>
   <%= link_to 'List of all beers', beers_path %>
